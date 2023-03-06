@@ -1,9 +1,0 @@
-<Course>
-1 test1 type1
-2 test2 type2
-<Course>
-<Teacher>
-1 name1 type1 type2 type3 
-2 name2 type2 type2 type4 
-3 name3 
-<Teacher>

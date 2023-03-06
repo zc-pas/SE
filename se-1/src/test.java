@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class test {
     public static void main(String[] src) throws IOException, ClassNotFoundException{
-    	Database db = new Database();
+    	Database db=Database.getInstance();
     	
     	db.getAllCourse().add("Chinese", "Type9");
     	db.getAllCourse().add("Computer Science", "Type10");

@@ -16,7 +16,15 @@ public class Database implements Serializable{
     private AllTeachingRequirements allTeachingRequirements;
     private AllTeachingArrangements allTeachingArrangements;
     
-    public Database() {
+    private static Database database;
+
+    public static Database getInstance(){
+        if(database==null){
+            database= new Database();
+        }
+        return database;
+    }
+    private Database() {
     	courseList=new AllCourse();
         teacherList= new AllTeacher();
     	allTeachingRequirements = new AllTeachingRequirements();

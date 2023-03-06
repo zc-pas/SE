@@ -1,63 +1,119 @@
+package ae2.src;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Database {
-    public static ArrayList<Course> courseList=new ArrayList<Course>();
-    public static ArrayList<Teacher> teacherList= new ArrayList<Teacher>();
+import ae2.src.Course;
+import ae2.src.Semester;
+import ae2.src.Teacher;
 
+public class Database implements Serializable{
+	// DB course/teacher list
+    private AllCourse courseList;
+    private AllTeacher teacherList;
+    // Each semester list
 
+    private AllTeachingRequirements allTeachingRequirements;
+    private AllTeachingArrangements allTeachingArrangements;
+    
+    public Database() {
+    	courseList=new AllCourse();
+        teacherList= new AllTeacher();
+    	allTeachingRequirements = new AllTeachingRequirements();
+    	allTeachingArrangements = new AllTeachingArrangements();
+    }
+    // Common function
     //show all course information
-    public static void showAllcourse(){
-        for(Course c:courseList){
+    public void showAllcourse(){
+    	System.out.println("Course List:");
+        for(Course c: courseList.get()){
             System.out.println(c);
         }
     }
 
     //show all teacher information
-    public static void showAllteacher(){
-        for(Teacher t:teacherList){
+    public void showAllteacher(){
+    	System.out.println("Teacher List:");
+        for(Teacher t:teacherList.get()){
             System.out.println(t);
         }
     }
-
-    //search a teacher by name
-    public static Teacher searchTeacherbyName(String name){
-        for(Teacher t:teacherList){
-            if(t.getName().equals(name)){
-                return t;
-            }
-        }
-        return null;
+    
+    public void showAllTeachingRequirements(){
+    	System.out.println("All Teaching Requirements:");
+        System.out.println(allTeachingRequirements);
+    }
+    
+    public void showAllTeachingArrangements(){
+    	System.out.println("All Teaching Arrangements:");
+        System.out.println(allTeachingArrangements);
     }
 
-    //search a course by name
-    public static Course searchCoursebyName(String name){
-        for(Course c:courseList){
-            if(c.getName().equals(name)){
-                return c;
-            }
-        }
-        return null;
+	/* 
+	 * Class director 
+	 * 1. delete/add course
+	 * 2. check history requirements
+	 */
+    
+    public GroupOfCourse getAllCourse() {
+    	return courseList;
     }
+	  
+    public GroupOfTeacher getAllTeacher() {
+		return teacherList;
+	}
+    
+    
+    // Add course
+//    public void addCourse(String name, String type) {
+//    	Course course = new Course();
+//    	course.setName(name);
+//    	course.setCourseType(type);
+//    	courseList.add(course);
+//    	System.out.println(name + " course add successfully");
+//    }
+//    
+//    // Delete course
+//    public void deleteCourse(String name) {
+//    	for(Course c: courseList.get()) {
+//    		if(c.getName().equals(name)) {
+//    			courseList.remove(c);
+//    			break;
+//    		}
+//    	}
+//    	System.out.println(name + " course delete successfully");
+//    }
+    
+	/* Admin 
+	 * Arrange
+	 */
+    // add teacher to course
+//    public void addTeachertoCourse(Course c, Teacher t){
+//        for(String s:t.getCourseCapable()){
+//            if(s.equals(c.getCourseType())){
+//                c.addTeacher(t);
+//                System.out.println("add success");
+//                return;
+//            }
+//        }
+//        System.out.println("illegal add");
+//        return;
+//    }
+    
+//    public void setTeachingRequirementBySemester(Semester s, GroupOfCourse gc) {
+//    	allTeachingRequirements.addTeachingRequirement(s,gc);
+//    }
+    
+    public AllTeachingRequirements getAllTeachingRequirements() {
+		return allTeachingRequirements;
+	}
+    
+	public AllTeachingArrangements getAllTeachingArrangements() {
+		return allTeachingArrangements;
+	}
 
-    public static ArrayList<Teacher> searchTeacherbyCapable(String type){
-        ArrayList<Teacher> result =new ArrayList<Teacher>();
-        for(Teacher t:teacherList){
-            if(t.getCourseCapable().contains(type)){
-                result.add(t);
-            }
-        }
-        return result;
-    }
-
-    public static void addTeachertoCourse(Course c, Teacher t){
-        for(String s:t.getCourseCapable()){
-            if(s.equals(c.getCourseType())){
-                c.setTeacher(t.getName());
-                System.out.println("add success");
-                return;
-            }
-        }
-        System.out.println("illegal add");
-        return;
-    }
+    
+//	public ArrayList<Semester> getSemesterList() {
+//		return semesterList;
+//	}
 }

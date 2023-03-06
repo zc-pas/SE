@@ -1,10 +1,43 @@
-import java.util.ArrayList;
+package ae2.src;
 
-public class Teacher {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Teacher implements Serializable{
     private String name;    
-    private ArrayList<String> courseCapable;    
+    private List<String> courseCapable;
+    static private int nextID = 0;
     private int teacherId;
 
+    public Teacher(String name){
+        this.teacherId=nextID;
+        Teacher.nextID++;
+        this.name=name;
+        this.courseCapable= new ArrayList<String>();
+    }
+    
+    public Teacher(int ID, String name, ArrayList<String> courseCapable){
+        this.teacherId=ID;
+        this.name=name;
+        this.courseCapable=courseCapable;
+    }
+    
+    public Teacher(String name, String capable){
+        this.teacherId=nextID;
+        Teacher.nextID++;
+        this.name=name;
+        this.courseCapable= new ArrayList<String>();
+        this.courseCapable.add(capable);
+    }
+    
+    public Teacher(String name, ArrayList<String> courseCapable){
+        this.teacherId=nextID;
+        Teacher.nextID++;
+        this.name=name;
+        this.courseCapable=courseCapable;
+    }
+    
     public int getTeacherId() {
         return teacherId;
     }
@@ -13,13 +46,10 @@ public class Teacher {
         this.teacherId = teacherId;
     }
 
-    public Teacher(int id, String name, ArrayList<String> courseCapable){
-        this.teacherId=id;
-        this.name=name;
-        this.courseCapable=courseCapable;
-    }
 
-    public ArrayList<String> getCourseCapable() {
+
+    
+    public List<String> getCourseCapable() {
         return courseCapable;
     }
     public void setCourseCapable(ArrayList<String> courseCapable) {
@@ -34,12 +64,13 @@ public class Teacher {
     }
 
     public String toString(){
-        String result=teacherId+" "+name+" ";
+    	String result = String.format("TeacherID: %-3d Name: %-15s Type: ", teacherId, name);
         for(String s:courseCapable){
-            result+=s;
-            result+=" ";
+            result+=String.format("%-10s", s);
         }
         return result;
     }
+    
+
     
 }

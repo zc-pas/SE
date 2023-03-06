@@ -1,33 +1,31 @@
+package ae2.src;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Course {
+public class Course implements Serializable{
     private String courseType;
-    private String name;
-    private String teacher;    
+    private String name;  
     private int courseId;
-        
-    public String getTeacher() {
-        return teacher;
+    static private int nextID = 0;
+
+    public Course(){
+    	this.courseId = nextID++;
     }
-
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
-    }
-
-
+    
     public Course(String courseType, String name, int courseId){
         this.courseType = courseType;
         this.name = name;
         this.courseId = courseId;
     }
     
-    public Course(String courseType, String name, int courseId, String teacher) {
+    public Course(String name, String courseType){
         this.courseType = courseType;
         this.name = name;
-        this.courseId = courseId;
-        this.teacher=teacher;
+        this.courseId = nextID++;
     }
-
+    
     public String getCourseType() {
         return courseType;
     }
@@ -48,7 +46,7 @@ public class Course {
         this.courseId = courseId;
     }
     public String toString(){
-        return courseId+" "+name+" "+courseType+" "+teacher;
+        return String.format("Course ID: %-3d Course Name: %-20s CourseType: %-10s", courseId, name, courseType);
     }
     
 }

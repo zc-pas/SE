@@ -1,0 +1,9 @@
+<Course>
+1 Course1 type1 teacher1
+2 Course2 type2 teacher2
+<Course>
+<Teacher>
+1 teacher1 type1 type2 type3 
+2 teacher2 type2 
+3 name3 
+<Teacher>

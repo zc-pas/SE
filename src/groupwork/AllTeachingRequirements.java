@@ -5,6 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 
+ * AllTeachingRequirements class is used to store and management
+ * all TeachingRequirements of every semester.
+ * 
+ * @author tianshuo
+ *
+ */
 public class AllTeachingRequirements implements Serializable{
 	Map<Semester,GroupOfCourse> allTeachingRequirements;
 	
@@ -13,6 +21,13 @@ public class AllTeachingRequirements implements Serializable{
 		
 	}
 	
+	/**
+	 * 
+	 * return the TeachingRequirement in semester s.
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public GroupOfCourse getTeachingRequirement(Semester s) {
 		return allTeachingRequirements.get(s);
 	}
@@ -25,6 +40,14 @@ public class AllTeachingRequirements implements Serializable{
 	}
 	
 	
+	/**
+	 * 
+	 * add TeachingRequirement gc in Semester s on AllTeachingRequirements
+	 * database.
+	 * 
+	 * @param s
+	 * @param gc a GroupOfCourse object which include some courses
+	 */
 	public void addTeachingRequirement(Semester s, GroupOfCourse gc) {
 		allTeachingRequirements.put(s, gc);
 	}
@@ -36,6 +59,15 @@ public class AllTeachingRequirements implements Serializable{
 		allTeachingRequirements.put(s, gc);
 	}
 	
+	/**
+	 * 
+	 * search TeachingRequirement in AllTeachingRequirements database 
+	 * by signature. return a GroupOfCourse if there is a 
+	 * teaching Requirement in that semester; Otherwise, return null.
+	 * 
+	 * @param signature e.g. "2021 Spring"
+	 * @return
+	 */
 	public GroupOfCourse searchTeachingRequirement(String signature) {
 		Set<Semester> keyset = allTeachingRequirements.keySet();
 		for(Semester s : keyset) {
@@ -46,6 +78,15 @@ public class AllTeachingRequirements implements Serializable{
 		}return null;
 	}
 	
+	/**
+	 * 
+	 * search TeachingRequirement in AllTeachingRequirements database 
+	 * by Semester s. return true if there is a teaching Requirement 
+	 * in that semester; Otherwise, return false.
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public boolean searchSemester(Semester s) {
 		if(allTeachingRequirements.containsKey(s)) {
 			return true;
@@ -53,6 +94,11 @@ public class AllTeachingRequirements implements Serializable{
 		return false;
 	}
 	
+	/**
+	 * 
+	 * return the String format of AllTeachingRequirements
+	 * 
+	 */
 	public String toString() {
 		String ans = "";
 		for (Semester s : allTeachingRequirements.keySet()) {

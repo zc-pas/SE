@@ -1,4 +1,4 @@
-package ae2.src;
+package groupwork;
 public class Builder {
 	public static GroupOfCourse loadRequirementByAllCourse(Database db) {
 		GroupOfCourse tr = new GroupOfCourse();

@@ -20,8 +20,16 @@ public class TeachingArrangement implements Serializable{
 		}
 	}
 	
+	public Map<Course,GroupOfTeacher> getTeachingArrangement() {
+		return this.teachingArrangement;
+	}
+	
 	public void addTeacher(Course c, Teacher t) {
 		teachingArrangement.get(c).add(t);
+	}
+	
+	public void addTeacher(Course c, GroupOfTeacher gt) {
+		teachingArrangement.put(c,gt);
 	}
 	
 	public void removeTeacher(Course c, Teacher t) {

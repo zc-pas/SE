@@ -15,7 +15,7 @@ public class Builder {
 	 * courses in database.
 	 * 
 	 * @param db database
-	 * @return
+	 * @return GroupOfCourse which include all courses in database
 	 */
 	public static GroupOfCourse loadRequirementByAllCourse(Database db) {
 		GroupOfCourse tr = new GroupOfCourse();
@@ -31,8 +31,8 @@ public class Builder {
 	 * create a new GroupOfCourse which is same as the teaching requirement
 	 * in Semester s.
 	 * 
-	 * @param db
-	 * @param s
+	 * @param db database
+	 * @param s the Semester that you need
 	 * @return
 	 */
 	public static GroupOfCourse loadRequirementBySemester(Database db, Semester s) {
@@ -50,8 +50,8 @@ public class Builder {
 	 * Semester s.
 	 * 
 	 * @param db
-	 * @param gc
-	 * @param s
+	 * @param gc the current teaching requirement that you want to fill
+	 * @param s the history Semester that you want to followed 
 	 * @return
 	 */
 	public static TeachingArrangement autoArrangeTeacherBySemester(Database db, GroupOfCourse gc, Semester s) {

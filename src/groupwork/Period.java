@@ -31,5 +31,4 @@ public class Period {
 		this.startDate = startDate;
 		this.duration = duration;
 	}
-	
 }

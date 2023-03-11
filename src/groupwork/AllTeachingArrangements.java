@@ -34,6 +34,13 @@ public class AllTeachingArrangements implements Serializable{
 	public void addTeachingArrangement(Semester s, TeachingArrangement ta) {
 		allTeachingArrangements.put(s, ta);
 	}
+	public boolean searchArrangement(Semester s) {
+		if(allTeachingArrangements.containsKey(s)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
 	public TeachingArrangement searchTeachingArrangement(String signature) {
 		Set<Semester> keyset = allTeachingArrangements.keySet();

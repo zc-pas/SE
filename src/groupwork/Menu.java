@@ -11,7 +11,8 @@ public class Menu {
 
 	Database db;
 	GroupOfCourse currentRequirement; 
-	Semester currentSemester;
+	GroupOfCourse tempCourses;
+	String currentSemester;
 	TeachingArrangement currentArrangement;
     // Login page 
 	public void login() throws FileNotFoundException, ClassNotFoundException, IOException {
@@ -124,15 +125,12 @@ public class Menu {
 	    				break;
 	    			case "2":
 	    				createNewEmptyTeachingRequirement();
-	    				editRequirement();
 	    				break;
 	    			case "3":
 	    				loadAllcourseRequirement();
-	    				editRequirement();
 	    				break;
 	    			case "4":
 	    				loadPastSemesterRequirement();
-	    				editRequirement();
 	    				break;
 	    			case "0":
 	    				System.out.println("Exit successfully");
@@ -306,30 +304,42 @@ public class Menu {
 		System.out.println("Success");
     }
     public void createNewEmptyTeachingRequirement(){
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("Enter the year:");
-		String year = sc.nextLine();
-		System.out.println("Enter the season: ");
-		String season = sc.nextLine();
-		String signature = year + " " + season;
-		Semester s = new Semester(Integer.parseInt(year),season);
-		currentSemester = s;
-		
-		if(!db.getAllTeachingRequirements().searchSemester(currentSemester)) {
-			db.getAllTeachingRequirements().addTeachingRequirement(s, new GroupOfCourse());
+    	checkSemester();
+		if(db.getAllTeachingRequirements().searchTeachingRequirement(currentSemester)!= null) {
+			db.getAllTeachingRequirements().addTeachingRequirement(currentSemester, new GroupOfCourse());
 			currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
+			editRequirement();
 		}else {
-			System.out.println(signature + " teaching requirement has been created");
+			System.out.println(currentSemester + " teaching requirement has been created");
 			createRequirementsInterface();
 		}
 		
     }
     public void loadAllcourseRequirement() {
-    	currentRequirement = Builder.loadRequirementByAllCourse(db);
-    	// TODO
+    	if(db.getAllCourse() != null) {
+    		checkSemester();
+    		tempCourses = Builder.loadRequirementByAllCourse(db);
+    		db.getAllTeachingRequirements().addTeachingRequirement(currentSemester, tempCourses);
+    		currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
+    		System.out.println("Load requirement of all courses successfully");
+        	editRequirement();
+    	}else {
+    		System.out.println("DB is empty, add course or create new requirement");
+    		createRequirementsInterface();
+    	}
+    	
     }
     public void loadPastSemesterRequirement() {
-    	// TODO
+    	checkSemester();
+    	if(db.getAllTeachingRequirements().searchTeachingRequirement(currentSemester) != null) {
+    		tempCourses = Builder.loadRequirementBySemester(db, currentSemester);
+    		db.getAllTeachingRequirements().addTeachingRequirement(currentSemester, tempCourses);
+    		currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
+    		System.out.println("Load requirement by semester successfully");
+    	}else {
+    		System.out.println("The semester doesn't exist, add course or create new requirement");
+    		createRequirementsInterface();
+    	}
     }
     public void addCoursetoRequirement() {
     	if (currentSemester != null) {
@@ -384,8 +394,36 @@ public class Menu {
 			System.out.println(signature + "teaching requirement hasn't been finished");
 		}
     }
+    // check semester
+    public String checkSemester(){
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the year:");
+		String year = sc.nextLine();
+		System.out.println("Enter the season: ");
+		String season = sc.nextLine();
+		String signature = year + " " + season;
+		return signature;
+    }
     public void loadHistoryArrangement() {
-    	//TODO
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the year:");
+		String year = sc.nextLine();
+		System.out.println("Enter the season: ");
+		String season = sc.nextLine();
+		String signature = year + " " + season;
+		Semester s = new Semester(Integer.parseInt(year),season);
+		currentSemester = s;
+		
+    	if(currentRequirement != null && true == db.getAllTeachingArrangements().searchArrangement(currentSemester)){
+    		Builder.autoArrangeTeacherBySemester(db, currentRequirement, currentSemester);
+    		AdministratorArrange();
+    	}else if(currentRequirement == null){
+    		System.out.println(signature + "teaching requirement hasn't been finished");
+    		createArrangementInterface();
+    	}else if(false == db.getAllTeachingArrangements().searchArrangement(currentSemester)) {
+    		System.out.println(signature + "teaching arrangement doesn't exist");
+    		createArrangementInterface();
+    	}
     }
     public void addTeachertoArrangement() {
     	if(currentArrangement != null) {

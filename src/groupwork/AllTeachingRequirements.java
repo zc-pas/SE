@@ -16,8 +16,23 @@ public class AllTeachingRequirements implements Serializable{
 	public GroupOfCourse getTeachingRequirement(Semester s) {
 		return allTeachingRequirements.get(s);
 	}
+	public GroupOfCourse getTeachingRequirement(String signature) {
+		String[] str = signature.split(" ");
+		int year = Integer.parseInt(str[0]);
+		String season = str[1];
+		Semester s = new Semester(year, season);
+		return allTeachingRequirements.get(s);
+	}
+	
 	
 	public void addTeachingRequirement(Semester s, GroupOfCourse gc) {
+		allTeachingRequirements.put(s, gc);
+	}
+	public void addTeachingRequirement(String signature, GroupOfCourse gc) {
+		String[] str = signature.split(" ");
+		int year = Integer.parseInt(str[0]);
+		String season = str[1];
+		Semester s = new Semester(year, season);
 		allTeachingRequirements.put(s, gc);
 	}
 	

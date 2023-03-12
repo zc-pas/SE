@@ -1,0 +1,198 @@
+@startuml
+class Course {
+-String Course Type
+-String name
+-int courseId
+-{static} int nexID
+
++Course()
++String getCourseType()
++void setCourseType(String courseType)
++String getName()
++void setName(String name)
++int getCourseId()
++void setCourseId(int courseId)
++String toString()
+}
+
+class Teacher{
+-String name         
+-List<String> courseCapable     
+-{static}int nextID     
+-int teacherId;
+
++Teacher()
++int getTeacherId()
++void setTeacherId(int teacherId)
++List<String> getCourseCapable()
++void setCourseCapable(ArrayList<String> courseCapable)
++String getName()
++void setName(String name)
++String toString()
+
+}
+
+class GroupOfCourse{
+#List<Course> groupOfCourse
++GroupOfCourse()
++List<Course> get()
++void remove(Course c)
++Course get(int id)
++void remove(int ID)
+}
+
+class GroupOfTeacher{
+List<Teacher> groupOfTeacher;
++GroupOfTeacher()
++List<Teacher> get()
++void remove(Teacher t)
++void remove(int ID)
++void add(Teacher t)
++void add(String name, String type)
++boolean contains(Teacher t)
++Teacher get(int id)
++Teacher searchTeacherbyName(String name)
++Teacher searchTeacherbyId(int id)
++ArrayList<Teacher> searchTeacherbyCapable(String type)
++String toString()
+}
+
+class AllCourse{
+-private int count;
++AllCourse()
++void add(Course c)
++void remove(Course c)
+}
+
+
+class AllTeacher{
+-int count;
++AllTeacher()
++void add(Teacher t)
++void remove(Teacher c)
+}
+
+class Builder{
++{static}GroupOfCourse loadRequirementByAllCourse(Database db)
++{static}GroupOfCourse loadRequirementBySemester(Database db, Semester s)
+}
+
+class Database{
+-AllTeacher teacherList
+-AllCourse courseList
+-AllTeachingRequirements allTeachingRequirements
+-AllTeachingArrangements allTeachingArrangements
+-{static}Database database
++{static}Database getInstance()
+-Database()
++void showAllcourse()
++void showAllteacher()
++void showAllTeachingRequirements()
++void showAllTeachingArrangements()
++GroupOfCourse getAllCourse()
++GroupOfTeacher getAllTeacher()
++AllTeachingRequirements getAllTeachingRequirements()
++AllTeachingArrangements getAllTeachingArrangements()
+}
+
+class TeachingArrangement{
+-Map<Course,GroupOfTeacher> teachingArrangement
++TeachingArrangement()
++TeachingArrangement(GroupOfCourse gc)
++void addTeacher(Course c, Teacher t)
++void removeTeacher(Course c, Teacher t)
++String toString()
+}
+
+class Menu{
+Database db
+GroupOfCourse currentRequirement
+Semester currentSemester
+TeachingArrangement currentArrangement
+
++void login()
++void basic()
++void ClassDirectorMainMenu()
++void createRequirementsInterface()
++void editRequirement()
++void AdministratorMainMenu()
++void createArrangementInterface()
++void AdministratorArrange()
++void searchCourse()
++void searchTeacher()
++void searchTeacherbyType()
++void addCoursetoDB()
++void addTeachertoDB()
++void createNewEmptyTeachingRequirement()
++void loadAllcourseRequirement()
++void loadPastSemesterRequirement()
++void addCoursetoRequirement()
++void deleteCoursefromRequirement()
++void createNewEmptyArrangement()
++loadHistoryArrangement()
++addTeachertoArrangement()
++void deleteTeacherfromArrangement()
+}
+
+class Period{
+-int year
+-int startDate
+-int duration
++Period()
++Period(int year)
++Period(int year, int startDate, int duration)
+}
+
+class Semester{
+-String season
+-String signature
+-ArrayList<Course> listcourse
++Semester()
++String getSeason()
++void setSeason(String season)
++String getSignature()
++void setSignature(String signature)
++ArrayList<Course> getListcourse()
++void setListcourse(ArrayList<Course> listcourse)
++void addCourse(Course c)
++String toString()
+}
+
+class IODatabase{
++{static} void write(Database db)
++{static} Database read()
+}
+
+class AllTeachingArrangements{
+Map<Semester,TeachingArrangement> allTeachingArrangements
++AllTeachingArrangements()
++TeachingArrangement getTeachingArrangement(Semester s)
++void addTeachingArrangement(Semester s, TeachingArrangement ta)
++String toString()
+}
+
+class AllTeachingRequirements{
+Map<Semester,GroupOfCourse> allTeachingRequirements
++AllTeachingRequirements()
++GroupOfCourse getTeachingRequirement(Semester s)
++void addTeachingRequirement(Semester s, GroupOfCourse gc)
++GroupOfCourse searchTeachingRequirement(String signature)
++boolean searchSemester(Semester s)
++String toString()
+}
+
+GroupOfCourse  o-- Course
+GroupOfTeacher o-- Teacher
+AllCourse <|-- GroupOfCourse
+AllTeacher <|-- GroupOfTeacher
+AllTeachingArrangements o-- TeachingArrangement
+Database *-- AllTeacher
+Database *-- AllCourse
+Database *-- AllTeachingArrangements
+Database *-- AllTeachingRequirements
+AllTeachingArrangements *-- Semester
+AllTeachingRequirements *-- Semester
+AllTeachingRequirements *-- GroupOfCourse
+Semester <|-- Period
+
+@enduml

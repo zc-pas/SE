@@ -51,7 +51,7 @@ public class test {
     	db.showAllTeachingArrangements();
 //    	
 //    	
-    	IODatabase.write(db);
+//    	IODatabase.write(db);
     	
     	Menu m = new Menu();
     	m.login();

@@ -43,6 +43,17 @@ public class AllTeachingArrangements implements Serializable{
 	public void addTeachingArrangement(Semester s, TeachingArrangement ta) {
 		allTeachingArrangements.put(s, ta);
 	}
+	
+	
+	public void addTeachingArrangement(String signature, TeachingArrangement ta) {
+		String[] str = signature.split(" ");
+		int year = Integer.parseInt(str[0]);
+		String season = str[1];
+		Semester s = new Semester(year, season);
+		allTeachingArrangements.put(s, ta);
+	}
+	
+	
 	public boolean searchArrangement(Semester s) {
 		if(allTeachingArrangements.containsKey(s)) {
 			return true;
@@ -53,14 +64,14 @@ public class AllTeachingArrangements implements Serializable{
 	
 	/**
 	 * 
-	 * search TeachingArrangement in AllTeachingArrangements database 
+	 * get TeachingArrangement in AllTeachingArrangements database 
 	 * by signature. return the TeachingArrangementif there is a 
 	 * TeachingArrangement in that semester; Otherwise, return null.
 	 * 
 	 * @param signature e.g. "2021 Spring"
 	 * @return
 	 */
-	public TeachingArrangement searchTeachingArrangement(String signature) {
+	public TeachingArrangement getTeachingArrangement(String signature) {
 		Set<Semester> keyset = allTeachingArrangements.keySet();
 		for(Semester s : keyset) {
 			if(s.getSignature().equals(signature)) {

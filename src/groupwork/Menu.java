@@ -7,13 +7,19 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.Arrays;
 
+/**
+ *  Menu page
+ * 
+ * @author Mingqi
+ *
+ */
 public class Menu {
 
 	Database db;
 	GroupOfCourse currentRequirement; 
-	GroupOfCourse tempCourses;
 	String currentSemester;
 	TeachingArrangement currentArrangement;
+	
     // Login page 
 	public void login() throws FileNotFoundException, ClassNotFoundException, IOException {
     	System.out.println("---------- Login ----------");
@@ -41,14 +47,16 @@ public class Menu {
     	}
     }
     
+	
+	/**
+	 * basic function for both user
+	 */
 	public void basic() {
 		while(true) {
 			try {
 				System.out.println("---------- Course&Teacher ----------");
 				System.out.println("1 Show all courses\n2 Show all teachers\n3 Search teacher(Name)\n"
 	    				+ "4 Search course(Name)\n5 Search teacher(Subject)\n0 Exit\nEnter your choice: ");
-	    		// return previous page
-				// TODO
 				Scanner sc = new Scanner(System.in);
 	    		String line = sc.nextLine();
 	    		
@@ -78,6 +86,11 @@ public class Menu {
 		}
 	}
 	
+    /**
+     * Class director is available to add course/teacher to Database
+     * And class director can enter "4" to enter the teaching requirement
+     * 
+     */
     public void ClassDirectorMainMenu() {
         while(true) {
         	try {
@@ -104,11 +117,18 @@ public class Menu {
 	    				System.exit(0);
 	    			}
     			}catch(Exception e) {
-    				System.out.println("Error, Please enter again. ");
+    				System.out.println("Error, Enter again. ");
     			}
         }
     }
     
+    /**
+     * Class director can create a new empty requirement(2)
+     * He/she can create a requirement by loading all courses from DB
+     * He/she can create a requirement by loading past semester's requirement
+     * If class director has created a requirement, it would jump to edit Requirement page
+     *  
+     */
     public void createRequirementsInterface() {
     	while(true) {
         	try {
@@ -141,6 +161,11 @@ public class Menu {
     			}
         }
     }
+    /**
+     * Class director can add/delete courser from the current requirement
+     * He/she can save the requirement to the DB
+     * 
+     */
     public void editRequirement() {
     	while(true) {
         	try {
@@ -161,7 +186,6 @@ public class Menu {
 	    				deleteCoursefromRequirement();
 	    				break;
 	    			case "4":
-	    				db.getAllTeachingRequirements().addTeachingRequirement(currentSemester,currentRequirement);
 	    				IODatabase.write(db);
 	    				System.out.println("Save successfully");
 	    				break;
@@ -175,6 +199,9 @@ public class Menu {
         }
     }
     
+    /**
+     * Admin can use basic function or create arrangement
+     */
     public void AdministratorMainMenu() {
     	while(true) {
         	try {
@@ -201,6 +228,12 @@ public class Menu {
         }
     }
     
+    /**
+     * Admin can create a new arrangement by enter the current semester(year&season)
+     * Admin can also load a arrangement by choosing past semester, our system would
+     * arrange the teacher from the selected semester's arrangement to the current requirement
+     * 
+     */
     public void createArrangementInterface() {
     	while(true) {
         	try {
@@ -230,11 +263,16 @@ public class Menu {
         }
     }
     
+    /**
+     * Admin can add/delete teacher from the current arrangement
+     * Admin can save arrangement
+     * 
+     */
     public void AdministratorArrange() {
     	while(true) {
         	try {
 	    		System.out.println("---------- Arrange ----------");
-	    		System.out.println("1 Check all history arrangements\n2 Add teacher\n3 Delete teacher\n0 Exit");
+	    		System.out.println("1 Check all history arrangements\n2 Add teacher\n3 Delete teacher\n4 save\n0 Exit");
 	    		System.out.println("Please enter your choice: ");
 	    		Scanner sc = new Scanner(System.in);
 	    		String line = sc.nextLine();
@@ -250,8 +288,8 @@ public class Menu {
 	    				deleteTeacherfromArrangement();
 	    				break;
 	    			case "4":
-	    				System.out.println("Save successfully");
 	    				IODatabase.write(db);;
+	    				System.out.println("Save successfully");
 	    				break;
 	    			case "0":
 	    				System.out.println("Exit successfully");
@@ -262,27 +300,44 @@ public class Menu {
     			}
         }
     }
-    // Basic function(Display&Search)
+   // Basic function
     public void searchCourse() {
     	System.out.println("Please enter the course name: ");
     	Scanner sc = new Scanner(System.in);
 		String name = sc.nextLine();
 		System.out.println(db.getAllCourse().searchCoursebyName(name));
+		sc.close();
     }
     public void searchTeacher() {
     	System.out.println("Please enter the teacher's name: ");
     	Scanner sc = new Scanner(System.in);
 		String name = sc.nextLine();
 		System.out.println(db.getAllTeacher().searchTeacherbyName(name));
+		sc.close();
     }
     public void searchTeacherbyType() {
     	System.out.println("Please enter the subject: ");
     	Scanner sc = new Scanner(System.in);
 		String subject = sc.nextLine();
 		System.out.println(db.getAllTeacher().searchTeacherbyCapable(subject));
+		sc.close();
+    }
+    /**
+     * Ask user to enter the semester
+     * @return
+     */
+    public String checkSemester(){
+    	Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the year:");
+		String year = sc.nextLine();
+		System.out.println("Enter the season: ");
+		String season = sc.nextLine();
+		return year + " " + season;
     }
     
-    // Class director management
+    /**
+     * Class director management
+     */
     public void addCoursetoDB(){
     	db.showAllcourse();
     	Scanner sc = new Scanner(System.in);
@@ -292,6 +347,7 @@ public class Menu {
 		String type = sc.nextLine();
 		db.getAllCourse().add(name,type);
 		System.out.println("Add course successfully");
+		sc.close();
     }
     public void addTeachertoDB(){
     	db.showAllteacher();
@@ -302,10 +358,12 @@ public class Menu {
 		String ab = sc.nextLine();
 		db.getAllTeacher().add(name,ab);
 		System.out.println("Success");
+		sc.close();
     }
     public void createNewEmptyTeachingRequirement(){
-    	checkSemester();
-		if(db.getAllTeachingRequirements().searchTeachingRequirement(currentSemester)!= null) {
+    	this.currentSemester = checkSemester();
+    	
+		if(db.getAllTeachingRequirements().getTeachingRequirement(currentSemester) == null) {
 			db.getAllTeachingRequirements().addTeachingRequirement(currentSemester, new GroupOfCourse());
 			currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
 			editRequirement();
@@ -313,31 +371,41 @@ public class Menu {
 			System.out.println(currentSemester + " teaching requirement has been created");
 			createRequirementsInterface();
 		}
-		
     }
     public void loadAllcourseRequirement() {
-    	if(db.getAllCourse() != null) {
-    		checkSemester();
-    		tempCourses = Builder.loadRequirementByAllCourse(db);
+    	System.out.println("Enter current semester:");
+    	currentSemester = checkSemester();
+    	if(db.getAllCourse() != null && db.getAllTeachingRequirements().getTeachingRequirement(currentSemester) == null) {
+    		GroupOfCourse tempCourses = Builder.loadRequirementByAllCourse(db);
     		db.getAllTeachingRequirements().addTeachingRequirement(currentSemester, tempCourses);
     		currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
     		System.out.println("Load requirement of all courses successfully");
         	editRequirement();
-    	}else {
+    	}else if (db.getAllCourse() == null) {
     		System.out.println("DB is empty, add course or create new requirement");
     		createRequirementsInterface();
+    	}else if (db.getAllTeachingRequirements().getTeachingRequirement(currentSemester) != null) {
+    		System.out.println("Current semester requirement has been created");
+    		editRequirement();
     	}
-    	
     }
-    public void loadPastSemesterRequirement() {
-    	checkSemester();
-    	if(db.getAllTeachingRequirements().searchTeachingRequirement(currentSemester) != null) {
-    		tempCourses = Builder.loadRequirementBySemester(db, currentSemester);
-    		db.getAllTeachingRequirements().addTeachingRequirement(currentSemester, tempCourses);
-    		currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
-    		System.out.println("Load requirement by semester successfully");
+    public void loadPastSemesterRequirement() throws FileNotFoundException, ClassNotFoundException, IOException {
+    	String temp = checkSemester();
+    	if(db.getAllTeachingRequirements().getTeachingRequirement(temp) != null) {
+    		System.out.println("Enter current semester:");
+    		currentSemester = checkSemester();
+    		if(db.getAllTeachingRequirements().getTeachingRequirement(currentSemester) == null) {
+    			GroupOfCourse tempCourses = Builder.loadRequirementBySemester(db, temp);
+        		db.getAllTeachingRequirements().addTeachingRequirement(currentSemester, tempCourses);
+        		currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
+        		System.out.println("Load requirement by semester successfully");
+        		editRequirement();
+    		}else {
+    			System.out.println("Current semester requirement has been created");
+    			editRequirement();
+    		}
     	}else {
-    		System.out.println("The semester doesn't exist, add course or create new requirement");
+    		System.out.println("The semester requirement doesn't exist, add course or create new requirement");
     		createRequirementsInterface();
     	}
     }
@@ -354,6 +422,7 @@ public class Menu {
         	currentRequirement.add(db.getAllCourse().searchCoursebyId(Integer.parseInt(id)));
         	
         	System.out.println(title + currentRequirement.toString());
+        	sc.close();
     	} else {
     		System.out.println("Create requirement first");
     		createNewEmptyTeachingRequirement();
@@ -370,86 +439,105 @@ public class Menu {
         	currentRequirement.remove(db.getAllCourse().searchCoursebyId(Integer.parseInt(id)));
         	
         	System.out.println(title + currentRequirement.toString());
+        	sc.close();
     	} else {
     		System.out.println("Create requirement first");
     		createNewEmptyTeachingRequirement();
     	}
     }
 
-    // Administrator management
+   
+    /**
+     * Administrator management
+     */
+    
     public void createNewEmptyArrangement() {
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("Enter the year:");
-		String year = sc.nextLine();
-		System.out.println("Enter the season: ");
-		String season = sc.nextLine();
-		String signature = year + " " + season;
+    	System.out.println("Enter current semester:");
+    	currentSemester = checkSemester();
 		
-		GroupOfCourse gc = db.getAllTeachingRequirements().searchTeachingRequirement(signature);
-		if (gc != null) {
+		GroupOfCourse gc = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
+		if (gc != null && db.getAllTeachingArrangements().getTeachingArrangement(currentSemester) == null) {
 			currentArrangement = new TeachingArrangement(gc);
 			System.out.println("Success");
 			AdministratorArrange();
-		} else {
-			System.out.println(signature + "teaching requirement hasn't been finished");
+		} else if(gc == null){
+			System.out.println(currentSemester + " Teaching requirement hasn't been finished");
+		} else if(db.getAllTeachingArrangements().getTeachingArrangement(currentSemester) != null) {
+			System.out.println(currentSemester + " teaching arrangement has been created");
+    		AdministratorArrange();
 		}
     }
-    // check semester
-    public String checkSemester(){
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("Enter the year:");
-		String year = sc.nextLine();
-		System.out.println("Enter the season: ");
-		String season = sc.nextLine();
-		String signature = year + " " + season;
-		return signature;
-    }
+
+    /**
+     * Invoking this method will inform user(Admin) to enter the past semester(year&season) 
+     * So that it will automatically add teachers who are from the selected semester arrangement
+     * to the current teaching requirement. After that, it will jump to Arrange menu for Admin to
+     * modify the arrangement
+     * 
+     * If class director haven't created the requirement or the selected arrangement doesn't exist,
+     * It will stay in the AdminMainMenu
+     * 
+     */
     public void loadHistoryArrangement() {
-    	Scanner sc = new Scanner(System.in);
-    	System.out.println("Enter the year:");
-		String year = sc.nextLine();
-		System.out.println("Enter the season: ");
-		String season = sc.nextLine();
-		String signature = year + " " + season;
-		Semester s = new Semester(Integer.parseInt(year),season);
-		currentSemester = s;
+    	System.out.println("Enter past semester:");
+    	String temp = checkSemester();
+    	System.out.println("Enter current semester:");
+    	currentSemester = checkSemester();
+		currentRequirement = db.getAllTeachingRequirements().getTeachingRequirement(currentSemester);
 		
-    	if(currentRequirement != null && true == db.getAllTeachingArrangements().searchArrangement(currentSemester)){
-    		Builder.autoArrangeTeacherBySemester(db, currentRequirement, currentSemester);
+    	if(currentRequirement != null && db.getAllTeachingArrangements().getTeachingArrangement(temp) != null &&
+    			db.getAllTeachingArrangements().getTeachingArrangement(currentSemester) == null){
+    		TeachingArrangement ta = Builder.autoArrangeTeacherBySemester(db, currentRequirement, temp);
+    		db.getAllTeachingArrangements().addTeachingArrangement(currentSemester, ta);
+    		currentArrangement = db.getAllTeachingArrangements().getTeachingArrangement(currentSemester);
     		AdministratorArrange();
     	}else if(currentRequirement == null){
-    		System.out.println(signature + "teaching requirement hasn't been finished");
+    		System.out.println(currentSemester + " teaching requirement hasn't been finished");
     		createArrangementInterface();
-    	}else if(false == db.getAllTeachingArrangements().searchArrangement(currentSemester)) {
-    		System.out.println(signature + "teaching arrangement doesn't exist");
+    	}else if(db.getAllTeachingArrangements().getTeachingArrangement(currentSemester) == null) {
+    		System.out.println(temp + " teaching arrangement doesn't exist");
     		createArrangementInterface();
+    	}else if(db.getAllTeachingArrangements().getTeachingArrangement(currentSemester) != null) {
+    		System.out.println(currentSemester + " teaching arrangement has been created");
+    		AdministratorArrange();
     	}
     }
+    
     public void addTeachertoArrangement() {
-    	if(currentArrangement != null) {
-    		String title = "*****************************************\nTeaching arrangement(todo)\n";
-    		System.out.println(title + currentArrangement);
-    		db.showAllteacher();
-    		Scanner sc = new Scanner(System.in);
-        	System.out.println("Enter the course name: ");
-    		String c = sc.nextLine();
-    		Course cc = db.getAllCourse().searchCoursebyName(c);
-    		
-    		for(int i = 0; i < 2; i++) {
-    			System.out.println("Enter the teacher's ID: ");
-    			int t = sc.nextInt();
-    			Teacher got = db.getAllTeacher().searchTeacherbyId(t);
-    			currentArrangement.addTeacher(cc, got);
-    		}
-    		
-    		db.getAllTeachingArrangements().addTeachingArrangement(currentSemester, currentArrangement);
-    		System.out.println(currentArrangement.toString());
-    	}else {
-    		createNewEmptyArrangement();
-    	}
+		String title = "*****************************************\nTeaching arrangement " + currentSemester + "\n";
+		currentArrangement = db.getAllTeachingArrangements().getTeachingArrangement(currentSemester);
+		System.out.println(title + " " + currentArrangement);
+		db.showAllteacher();
+		Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the course name: ");
+		String c = sc.nextLine();
+		Course cc = db.getAllCourse().searchCoursebyName(c);
+		
+		System.out.println("Enter the teacher's ID(separated by one space)");
+		String[] teachers = sc.nextLine().split(" ");
+		for(String t: teachers) {
+			Teacher teacher = db.getAllTeacher().searchTeacherbyId(Integer.parseInt(t));
+			currentArrangement.addTeacher(cc, teacher);
+		}
+		System.out.println(currentArrangement.toString());
     }
+    
     public void deleteTeacherfromArrangement() {
-    	
+    	String title = "*****************************************\nTeaching arrangement " + currentSemester + "\n";
+    	currentArrangement = db.getAllTeachingArrangements().getTeachingArrangement(currentSemester);
+		System.out.println(title + " " + currentArrangement);
+		Scanner sc = new Scanner(System.in);
+    	System.out.println("Enter the course name: ");
+		String c = sc.nextLine();
+		Course cc = db.getAllCourse().searchCoursebyName(c);
+		
+		System.out.println("Enter the teacher's ID(separated by one space)");
+		String[] teachers = sc.nextLine().split(" ");
+		for(String t: teachers) {
+			Teacher teacher = db.getAllTeacher().searchTeacherbyId(Integer.parseInt(t));
+			currentArrangement.removeTeacher(cc, teacher);
+		}
+		System.out.println(currentArrangement.toString());
     }
    
 }

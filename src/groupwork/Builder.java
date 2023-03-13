@@ -32,16 +32,16 @@ public class Builder {
 	 * in Semester s.
 	 * 
 	 * @param db database
-	 * @param s the Semester that you need
+	 * @param signature the Semester that you need
 	 * @return
 	 */
-	public static GroupOfCourse loadRequirementBySemester(Database db, Semester s) {
+	public static GroupOfCourse loadRequirementBySemester(Database db, String signature) {
 		GroupOfCourse tr = new GroupOfCourse();
-		GroupOfCourse courses = db.getAllTeachingRequirements().getTeachingRequirement(s);
-		for (Course c : courses.get()) {
+		for (Course c : db.getAllTeachingRequirements().getTeachingRequirement(signature).get()) {
 			tr.add(c);
 		}
-		return tr;
+		return tr;	
+
 	}
 	
 	/**
@@ -54,9 +54,9 @@ public class Builder {
 	 * @param s the history Semester that you want to followed 
 	 * @return
 	 */
-	public static TeachingArrangement autoArrangeTeacherBySemester(Database db, GroupOfCourse gc, Semester s) {
+	public static TeachingArrangement autoArrangeTeacherBySemester(Database db, GroupOfCourse gc, String signature) {
 		TeachingArrangement ta = new TeachingArrangement(gc);
-		TeachingArrangement historyTa = db.getAllTeachingArrangements().getTeachingArrangement(s);
+		TeachingArrangement historyTa = db.getAllTeachingArrangements().getTeachingArrangement(signature);
 		for (Course c : ta.getTeachingArrangement().keySet()) {
 			if (historyTa.getTeachingArrangement().keySet().contains(c)) {
 				ta.addTeacher(c, historyTa.getTeachingArrangement().get(c));

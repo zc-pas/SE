@@ -31,14 +31,6 @@ public class AllTeachingRequirements implements Serializable{
 	public GroupOfCourse getTeachingRequirement(Semester s) {
 		return allTeachingRequirements.get(s);
 	}
-	public GroupOfCourse getTeachingRequirement(String signature) {
-		String[] str = signature.split(" ");
-		int year = Integer.parseInt(str[0]);
-		String season = str[1];
-		Semester s = new Semester(year, season);
-		return allTeachingRequirements.get(s);
-	}
-	
 	
 	/**
 	 * 
@@ -51,6 +43,7 @@ public class AllTeachingRequirements implements Serializable{
 	public void addTeachingRequirement(Semester s, GroupOfCourse gc) {
 		allTeachingRequirements.put(s, gc);
 	}
+	
 	public void addTeachingRequirement(String signature, GroupOfCourse gc) {
 		String[] str = signature.split(" ");
 		int year = Integer.parseInt(str[0]);
@@ -61,14 +54,14 @@ public class AllTeachingRequirements implements Serializable{
 	
 	/**
 	 * 
-	 * search TeachingRequirement in AllTeachingRequirements database 
+	 * get TeachingRequirement in AllTeachingRequirements database 
 	 * by signature. return a GroupOfCourse if there is a 
 	 * teaching Requirement in that semester; Otherwise, return null.
 	 * 
 	 * @param signature e.g. "2021 Spring"
 	 * @return
 	 */
-	public GroupOfCourse searchTeachingRequirement(String signature) {
+	public GroupOfCourse getTeachingRequirement(String signature) {
 		Set<Semester> keyset = allTeachingRequirements.keySet();
 		for(Semester s : keyset) {
 			if(s.getSignature().equals(signature)) {
@@ -93,6 +86,7 @@ public class AllTeachingRequirements implements Serializable{
 		}
 		return false;
 	}
+	
 	
 	/**
 	 * 

@@ -20,6 +20,7 @@ public class Menu {
 	String currentSemester;
 	TeachingArrangement currentArrangement;
 	
+	
     // Login page 
 	public void login() throws FileNotFoundException, ClassNotFoundException, IOException {
     	System.out.println("---------- Login ----------");
@@ -248,7 +249,7 @@ public class Menu {
 	    				db.showAllTeachingArrangements(); 
 	    				break;
 	    			case "2":
-	    				createNewEmptyArrangement(); 
+	    				createNewEmptyArrangement();
 	    				break;
 	    			case "3":
 	    				loadHistoryArrangement();
@@ -306,21 +307,18 @@ public class Menu {
     	Scanner sc = new Scanner(System.in);
 		String name = sc.nextLine();
 		System.out.println(db.getAllCourse().searchCoursebyName(name));
-		sc.close();
     }
     public void searchTeacher() {
     	System.out.println("Please enter the teacher's name: ");
     	Scanner sc = new Scanner(System.in);
 		String name = sc.nextLine();
 		System.out.println(db.getAllTeacher().searchTeacherbyName(name));
-		sc.close();
     }
     public void searchTeacherbyType() {
     	System.out.println("Please enter the subject: ");
     	Scanner sc = new Scanner(System.in);
 		String subject = sc.nextLine();
 		System.out.println(db.getAllTeacher().searchTeacherbyCapable(subject));
-		sc.close();
     }
     /**
      * Ask user to enter the semester
@@ -347,7 +345,6 @@ public class Menu {
 		String type = sc.nextLine();
 		db.getAllCourse().add(name,type);
 		System.out.println("Add course successfully");
-		sc.close();
     }
     public void addTeachertoDB(){
     	db.showAllteacher();
@@ -358,7 +355,6 @@ public class Menu {
 		String ab = sc.nextLine();
 		db.getAllTeacher().add(name,ab);
 		System.out.println("Success");
-		sc.close();
     }
     public void createNewEmptyTeachingRequirement(){
     	this.currentSemester = checkSemester();
@@ -410,8 +406,8 @@ public class Menu {
     	}
     }
     public void addCoursetoRequirement() {
-    	if (currentSemester != null) {
-    		String title = "*****************************************\nCurrent teaching requirement\n";
+    	
+    	String title = "*****************************************\nCurrent teaching requirement\n";
     		System.out.println("DB_course");
     		db.showAllcourse();
     		System.out.println(title + currentRequirement.toString());
@@ -422,14 +418,8 @@ public class Menu {
         	currentRequirement.add(db.getAllCourse().searchCoursebyId(Integer.parseInt(id)));
         	
         	System.out.println(title + currentRequirement.toString());
-        	sc.close();
-    	} else {
-    		System.out.println("Create requirement first");
-    		createNewEmptyTeachingRequirement();
-    	}
     }
     public void deleteCoursefromRequirement() {
-    	if (currentSemester != null) {
     		String title = "*****************************************\nCurrent teaching requirement\n";
     		System.out.println(title + currentRequirement.toString());
     		
@@ -439,11 +429,6 @@ public class Menu {
         	currentRequirement.remove(db.getAllCourse().searchCoursebyId(Integer.parseInt(id)));
         	
         	System.out.println(title + currentRequirement.toString());
-        	sc.close();
-    	} else {
-    		System.out.println("Create requirement first");
-    		createNewEmptyTeachingRequirement();
-    	}
     }
 
    

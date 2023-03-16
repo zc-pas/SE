@@ -29,6 +29,14 @@ public class AllTeacher extends GroupOfTeacher implements Serializable{
 		count = this.groupOfTeacher.size();
 	}
 	
+	public void add(String teacher, String ability) {
+		count = this.groupOfTeacher.size();
+		Teacher t = new Teacher(teacher, ability);
+		this.groupOfTeacher.add(t);
+		t.setTeacherId(count);
+		count = this.groupOfTeacher.size();
+	}
+	
 	/**
 	 * 
 	 * remove a teacher from teacher database. Only a small 

@@ -17,6 +17,7 @@ public class Database implements Serializable{
         if(database==null){
             database= new Database();
         }
+        ((AllCourse) database.getAllCourse()).setCount();
         return database;
     }
     
@@ -53,11 +54,11 @@ public class Database implements Serializable{
         System.out.println(allTeachingArrangements);
     }
     
-    public GroupOfCourse getAllCourse() {
+    public AllCourse getAllCourse() {
     	return courseList;
     }
 	  
-    public GroupOfTeacher getAllTeacher() {
+    public AllTeacher getAllTeacher() {
 		return teacherList;
 	}
     

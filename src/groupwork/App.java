@@ -3,9 +3,30 @@ package groupwork;
 
 import java.io.IOException;
 
-public class test {
+public class App {
     public static void main(String[] src) throws IOException, ClassNotFoundException{
-    	Database db=Database.getInstance();
+    	
+    	
+		/*
+		 * We provide some test data for you 
+		 * If you want to use it, use importTestData() below
+		 * 
+		 */
+    	
+//    	importTestData();
+    	
+    	Database db = Database.getInstance();
+		db = IODatabase.read();
+    	System.out.println("Read database successfully");
+    	Menu m = new Menu();
+    	m.login();
+    }
+    
+    
+    public static void importTestData() throws IOException {
+    	
+    	
+		Database db = Database.getInstance();
     	
     	db.getAllCourse().add("Chinese", "Type9");
     	db.getAllCourse().add("Computer Science", "Type10");
@@ -38,9 +59,7 @@ public class test {
     	gt.add(t3);
     	gt.add(t4);
     	
-    	db.showAllTeachingRequirements();
     	db.getAllTeachingRequirements().addTeachingRequirement(new Semester(2020,0130, 10, "Spring"), gc);
-    	db.showAllTeachingRequirements();
     	TeachingArrangement ta = new TeachingArrangement(gc);
     	ta.addTeacher(c1, t2);
     	ta.addTeacher(c1, t1);
@@ -48,39 +67,8 @@ public class test {
     	ta.addTeacher(c2, t4);
     	ta.addTeacher(c2, t1);
     	db.getAllTeachingArrangements().addTeachingArrangement(new Semester(2018,901, 20, "Spring"), ta);
-    	db.showAllTeachingArrangements();
-//    	
-//    	
-//    	IODatabase.write(db);
-    	
-    	Menu m = new Menu();
-    	m.login();
-    	
-    	Database newdb = IODatabase.read();
-    	System.out.println("read database successfully");
-//    	
-//    	Course c3 = new Course("Pysical","Type99");
-//    	newdb.getAllCourse().add(c3);
-//    	Course c4 = new Course("Art","Type66");
-//    	newdb.getAllCourse().add(c4);
-//  	
-//    	Course c5 = new Course("Progromming","hard");
-//    	newdb.getAllCourse().add(c5);
-//    	Course c6 = new Course("Cooking","easy");
-//    	newdb.getAllCourse().add(c6);
-    	newdb.showAllcourse();
-    	System.out.println("******************************");
-    	newdb.showAllteacher();
-    	
-    	System.out.println("******************************");
-    	newdb.showAllTeachingRequirements();
-    	System.out.println("******************************");
-    	newdb.showAllTeachingArrangements();
- 	
-    	System.out.println("******************************");
-//    	Menu m = new Menu();
-    	m.login();
     	
     	
-    }
+    	IODatabase.write(db);	
+	}
 }

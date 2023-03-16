@@ -35,10 +35,6 @@ public class GroupOfTeacher implements Serializable{
 		groupOfTeacher.add(t);
 	}
 	
-	public void add(String name, String type) {
-		groupOfTeacher.add(new Teacher(name,type));
-	}
-	
 	public boolean contains(Teacher t) {
 		return groupOfTeacher.contains(t);
 	}

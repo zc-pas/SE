@@ -42,11 +42,7 @@ public class GroupOfCourse implements Serializable{
 	public void add(Course c) {
 		groupOfCourse.add(c);
 	}
-	
-	public void add(String name, String type) {
-		groupOfCourse.add(new Course(name,type));
-	}
-	
+		
     //search a course by name
     public Course searchCoursebyName(String name){
         for(Course c:groupOfCourse){
@@ -67,7 +63,7 @@ public class GroupOfCourse implements Serializable{
     }
 	
 	public String toString() {
-		String s = "";
+		String s = " ";
 		for (Course c : groupOfCourse) {
 			s += c.toString() + "\n";
 		}

@@ -32,6 +32,18 @@ public class AllCourse extends GroupOfCourse implements Serializable{
 	}
 	
 	/**
+	 * add a course to the course database
+	 * 
+	 */
+	public void add(String course, String type) {
+		count = this.groupOfCourse.size();
+		Course c = new Course(course, type);
+		this.groupOfCourse.add(c);
+		c.setCourseId(count);
+		count = this.groupOfCourse.size();
+	}
+	
+	/**
 	 * remove a course from course database. Only a small 
 	 * number of privileged people can use it. Both administrator
 	 * and class director cannot use it.
@@ -39,5 +51,13 @@ public class AllCourse extends GroupOfCourse implements Serializable{
 	 */
 	public void remove(Course c) {
 		System.out.print("you cannot remove from the course database");
+	}
+	
+	public int getCount() {
+		return this.count;
+	}
+	
+	public void setCount() {
+		this.count = this.get().size();
 	}
 }

@@ -11,8 +11,6 @@ import java.io.ObjectOutputStream;
  * IODatabase class is used to read objects from the database
  * and write objects in database
  * 
- * @author tianshuo
- *
  */
 public class IODatabase {
 	

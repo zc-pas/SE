@@ -4,6 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * GroupOfTeacher class, which implements the Serializable interface
+ * The class contains a List<Teacher> collection named groupOfTeacher to store teacher objects.
+ * The class provides methods for adding, removing and finding teachers,
+ * including finding teacher objects based on their name, ID or the type of course they can teach.
+ * 
+ * @author Chu Zhang 2650227Z
+ */
+
 public class GroupOfTeacher implements Serializable{
 	List<Teacher> groupOfTeacher;
 	

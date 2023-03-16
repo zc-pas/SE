@@ -3,6 +3,14 @@ package groupwork;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * 
+ * GroupOfCourse class, which implements the Serializable interface
+ * The class contains a List<Course> collection named groupOfCourse for storing course objects.
+ * The class provides methods for adding, deleting and finding courses, including finding course by course name or ID.
+ * The class also provides a toString() method for converting the elements of the collection to strings.
+ *
+ */
 
 public class GroupOfCourse implements Serializable{
 	protected List<Course> groupOfCourse;
@@ -15,6 +23,8 @@ public class GroupOfCourse implements Serializable{
 		return this.groupOfCourse;
 	}
 	
+	
+	// get the course by id from the group of course 
 	public Course get(int id) {
 		for (Course c : groupOfCourse) {
 			if (c.getCourseId() == id) {
@@ -24,6 +34,11 @@ public class GroupOfCourse implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * 
+	 * Delete course from group of course by two input
+	 * @param c
+	 */
 	public void remove(Course c) {
 		if (groupOfCourse.contains(c)) {
 			groupOfCourse.remove(c);
@@ -43,7 +58,12 @@ public class GroupOfCourse implements Serializable{
 		groupOfCourse.add(c);
 	}
 		
-    //search a course by name
+    /**
+     * search a course by name
+     * @param name
+     * @return
+     * 
+     */
     public Course searchCoursebyName(String name){
         for(Course c:groupOfCourse){
             if(c.getName().equals(name)){
@@ -53,6 +73,11 @@ public class GroupOfCourse implements Serializable{
         return null;
     }
     
+    /**
+     * search a course by id
+     * @param id
+     * @return
+     */
     public Course searchCoursebyId(int id){
         for(Course c:groupOfCourse){
             if(c.getCourseId()==id){

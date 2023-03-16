@@ -14,6 +14,7 @@ import java.util.Set;
  *
  */
 public class AllTeachingRequirements implements Serializable{
+	 // A mapping table indicating the teaching requirements for different semesters
 	Map<Semester,GroupOfCourse> allTeachingRequirements;
 	
 	public AllTeachingRequirements() {
@@ -44,6 +45,15 @@ public class AllTeachingRequirements implements Serializable{
 		allTeachingRequirements.put(s, gc);
 	}
 	
+	
+	
+	/**
+	 * Same function as the former
+	 * But so far, actually we implement this method to add arrangement
+	 * We keep the former one for future version  
+	 * @param signature
+	 * @param gc
+	 */
 	public void addTeachingRequirement(String signature, GroupOfCourse gc) {
 		String[] str = signature.split(" ");
 		int year = Integer.parseInt(str[0]);

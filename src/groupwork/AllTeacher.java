@@ -5,14 +5,15 @@ import java.io.Serializable;
 
 /**
  * 
+ * The AllTeacher class is a class that extends the GroupOfTeacher class and
+ * implements the Serializable interface.
  * AllTeacher class is used to store and managements all teachers
- * 
- * @author tianshuo
  *
  */
 public class AllTeacher extends GroupOfTeacher implements Serializable{
 	private int count;
 	
+	// Use count to create unique ID for teacher
 	public AllTeacher() {
 		super();
 		count = groupOfTeacher.size();

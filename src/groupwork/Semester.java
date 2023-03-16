@@ -4,6 +4,14 @@ package groupwork;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 
+ * Based on semester, we provided some convenient functions for user,
+ * For instance, user can load history requirement/arrangement, etc. 
+ * It extends the Period class and implements the serializable interface.
+ * 
+ */
+
 public class Semester extends Period implements Serializable{
 	private String season;
 	private String signature;

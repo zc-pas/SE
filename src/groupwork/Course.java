@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Course class is a class that implements the Serializable interface and represents a course.
+ * It contains information such as course type, name, and course ID.
+ *
+ */
 public class Course implements Serializable{
     private String courseType;
     private String name;  

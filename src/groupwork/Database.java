@@ -4,6 +4,12 @@ package groupwork;
 import java.io.Serializable;
 
 
+/**
+ * 
+ *  The class includes methods for displaying all courses and teachers from DB, as well as the teaching requirements and arrangements.
+ * 	Additionally, there are methods for adding courses and getters for AllCourse, AllTeacher, AllTeachingRequirements, AllTeachingArrangements.
+ * 
+ */
 public class Database implements Serializable{
 
     private AllCourse courseList;
@@ -13,6 +19,14 @@ public class Database implements Serializable{
     
     private static Database database;
 
+    
+    /**
+     * Singleton pattern
+     * This method returns a reference to the only instance of the Database class.
+     * It creates a new instance of the Database class if it does not exist yet,
+     * and returns the existing instance otherwise.
+     * 
+     */
     public static Database getInstance(){
         if(database==null){
             database= new Database();

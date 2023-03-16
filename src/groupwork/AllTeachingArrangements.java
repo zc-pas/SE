@@ -11,12 +11,13 @@ import java.util.Set;
  * AllTeachingArrangements class is used to store and management
  * all TeachingArrangements of every semester.
  * 
- * @author tianshuo
- *
  */
 public class AllTeachingArrangements implements Serializable{
+	
+	// A mapping table indicating the teaching schedule for all semesters
 	Map<Semester,TeachingArrangement> allTeachingArrangements;
 	
+	// Constructor
 	public AllTeachingArrangements() {
 		allTeachingArrangements = new HashMap<Semester,TeachingArrangement>();
 	}
@@ -45,6 +46,14 @@ public class AllTeachingArrangements implements Serializable{
 	}
 	
 	
+	/**
+	 * 
+	 * Same function as above method
+	 * But so far, actually we implement this method to add arrangement
+	 * We keep the former one for future version 
+	 * @param signature
+	 * @param ta
+	 */
 	public void addTeachingArrangement(String signature, TeachingArrangement ta) {
 		String[] str = signature.split(" ");
 		int year = Integer.parseInt(str[0]);

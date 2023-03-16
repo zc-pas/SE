@@ -9,9 +9,9 @@ import java.util.Arrays;
 
 /**
  *  Menu page
+ * Menu class for displaying console output
+ * Entering numbers at the prompt to complete the corresponding function
  * 
- * @author Mingqi
- *
  */
 public class Menu {
 
@@ -21,7 +21,14 @@ public class Menu {
 	TeachingArrangement currentArrangement;
 	
 	
-    // Login page 
+	/**
+	 * 
+	 * Login page
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void login() throws FileNotFoundException, ClassNotFoundException, IOException {
     	System.out.println("---------- Login ----------");
     	System.out.println("1 Class Director\n2 Administrator\n0 Exit System");
@@ -51,6 +58,7 @@ public class Menu {
 	
 	/**
 	 * basic function for both user
+	 * like display and search
 	 */
 	public void basic() {
 		while(true) {
@@ -89,7 +97,7 @@ public class Menu {
 	
     /**
      * Class director is available to add course/teacher to Database
-     * And class director can enter "4" to enter the teaching requirement
+     * And class director can create a teaching requirement
      * 
      */
     public void ClassDirectorMainMenu() {
@@ -124,10 +132,10 @@ public class Menu {
     }
     
     /**
-     * Class director can create a new empty requirement(2)
-     * He/she can create a requirement by loading all courses from DB
-     * He/she can create a requirement by loading past semester's requirement
-     * If class director has created a requirement, it would jump to edit Requirement page
+     * Class director(CD) can create a new empty requirement(2)
+     * CD can create a requirement by loading all courses from DB
+     * CD can create a requirement by loading past semester's requirement
+     * If class director has already created a requirement, it would jump to edit Requirement page
      *  
      */
     public void createRequirementsInterface() {
@@ -163,8 +171,8 @@ public class Menu {
         }
     }
     /**
-     * Class director can add/delete courser from the current requirement
-     * He/she can save the requirement to the DB
+     * Class director can add/delete courses from the current requirement
+     * CD can save the requirement to the DB
      * 
      */
     public void editRequirement() {
@@ -201,7 +209,8 @@ public class Menu {
     }
     
     /**
-     * Admin can use basic function or create arrangement
+     * Admin can use basic function or create a teaching arrangement
+     * 
      */
     public void AdministratorMainMenu() {
     	while(true) {
@@ -231,8 +240,8 @@ public class Menu {
     
     /**
      * Admin can create a new arrangement by enter the current semester(year&season)
-     * Admin can also load a arrangement by choosing past semester, our system would
-     * arrange the teacher from the selected semester's arrangement to the current requirement
+     * Admin can also load a arrangement by choosing past semester, 
+     * our system would arrange the teacher from the selected semester's arrangement to the current requirement
      * 
      */
     public void createArrangementInterface() {
@@ -335,6 +344,8 @@ public class Menu {
     
     /**
      * Class director management
+     * CD is only able to add data to the database
+     * 
      */
     public void addCoursetoDB(){
     	db.showAllcourse();
@@ -356,6 +367,14 @@ public class Menu {
 		db.getAllTeacher().add(name,ab);
 		System.out.println("Success");
     }
+    
+    
+    /**
+     * 
+     * Class director can create a new requirement by enter the current semester
+     * It would an empty requirement
+     * 
+     */
     public void createNewEmptyTeachingRequirement(){
     	this.currentSemester = checkSemester();
     	
@@ -368,6 +387,11 @@ public class Menu {
 			createRequirementsInterface();
 		}
     }
+    /**
+     * 
+     * Class director can load a new requirement with all courses form DB, entering the current semester
+     * 
+     */
     public void loadAllcourseRequirement() {
     	System.out.println("Enter current semester:");
     	currentSemester = checkSemester();
@@ -385,7 +409,12 @@ public class Menu {
     		editRequirement();
     	}
     }
-    public void loadPastSemesterRequirement() throws FileNotFoundException, ClassNotFoundException, IOException {
+    /**
+     * 
+     * Class director can load a new requirement by choosing a past semester 
+     * 
+     */
+    public void loadPastSemesterRequirement() {
     	String temp = checkSemester();
     	if(db.getAllTeachingRequirements().getTeachingRequirement(temp) != null) {
     		System.out.println("Enter current semester:");
@@ -405,6 +434,11 @@ public class Menu {
     		createRequirementsInterface();
     	}
     }
+    /**
+     * 
+     * Class director can add/delete courser from current requirement
+     * 
+     */
     public void addCoursetoRequirement() {
     	
     	String title = "*****************************************\nCurrent teaching requirement\n";
@@ -488,6 +522,11 @@ public class Menu {
     	}
     }
     
+    /**
+     * 
+     * Admin can add/delete teacher from current arrangement
+     * 
+     */
     public void addTeachertoArrangement() {
 		String title = "*****************************************\nTeaching arrangement " + currentSemester + "\n";
 		currentArrangement = db.getAllTeachingArrangements().getTeachingArrangement(currentSemester);

@@ -5,7 +5,6 @@ package groupwork;
  * Builder class is used to build GroupOfCourse, TeachingArrangement
  * by history records.
  * 
- * @author tianshuo
  *
  */
 public class Builder {

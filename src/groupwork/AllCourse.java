@@ -4,17 +4,16 @@ package groupwork;
 import java.io.Serializable;
 /**
  * 
- * AllCourse class extends GroupOfCourse class and 
+ * AllCourse class extends GroupOfCourse class and
  * it is used to management the course database
- * 
- * @author tianshuo
  *
  */
 public class AllCourse extends GroupOfCourse implements Serializable{
 	
-	private int count; // current count of courses
+	// current count of courses
+	private int count; 
 	
-
+	// Constructor, the number of courses is equal to the size of the obtained groupOfCourse
 	public AllCourse() {
 		super();
 		count = groupOfCourse.size();

@@ -4,7 +4,12 @@ package groupwork;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 
+ * This class implements the Serializable interface and represents a teacher.
+ * It contains information such as the teacher's name, type, id.
+ *
+ */
 public class Teacher implements Serializable{
     private String name;    
     private List<String> courseCapable;
@@ -46,9 +51,6 @@ public class Teacher implements Serializable{
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
     }
-
-
-
     
     public List<String> getCourseCapable() {
         return courseCapable;
